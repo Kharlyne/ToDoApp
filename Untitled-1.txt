@@ -1,0 +1,67 @@
+// Szenario 1
+
+Funktionplotter.MathFunction sin =new Funktionplotter.SinFunction(10,1,0);
+Funktionplotter.MathFunction dsin=new Funktionplotter.DerivativeFunction(sin,0.001);
+plotter.plotFunction(t,-10,10, sin,dsin,true,10,0,0);
+
+Funktionplotter.MathFunction quadratic = new Funktionplotter.PolynomialFunction(new double[]{-4,0,1});
+Funktionplotter.MathFunction dquadratic=new Funktionplotter.DerivativeFunction(quadratic,0.001);
+plotter.plotFunction(t,-10,10, quadratic, dquadratic,true,10,0,0);
+
+
+
+
+// Szenario 2
+
+plotter.zoom(t,3,0,0);
+plotter.zoom(t,2,-2,3);
+plotter.zoom(t,0.5,0,0);
+
+
+// Szenario 3
+
+Funktionplotter.MathFunction q = new Funktionplotter.PolynomialFunction(new double[]{70,-31,-4,1});
+Funktionplotter.MathFunction dq=new Funktionplotter.DerivativeFunction(q,0.001);
+plotter.plotFunction(t,-10,10,q,dq,true,10,0,0)
+
+Funktionplotter.MathFunction l= new Funktionplotter.LinearFunction(5,2);
+Funktionplotter.MathFunction dl=new Funktionplotter.DerivativeFunction(l,0.001);
+plotter.plotFunction(t,-10,10, l,dl,true,10,0,0);
+
+// Szenario 4
+
+Funktionplotter.MathFunction i = new Funktionplotter.InverseFunction(1,3);
+Funktionplotter.MathFunction di = new Funktionplotter.DerivativeFunction(i, 0.001);
+Funktionplotter.MathFunction ln =new Funktionplotter.LnFunction(10,1,-2);
+Funktionplotter.MathFunction dln =new Funktionplotter.DerivativeFunction(ln,0.001)
+Funktionplotter.MathFunction c=new Funktionplotter.CombinedFunction(i,ln,'+');
+Funktionplotter.MathFunction dc=new Funktionplotter.DerivativeFunction(c,0.001);
+plotter.plotFunction(t , -10, 10, c, dc, true, 10, 0, 0);
+
+Funktionplotter.MathFunction e = new Funktionplotter.ExpFunction(10,1,0);
+Funktionplotter.MathFunction de = new Funktionplotter.DerivativeFunction(e, 0.001);
+plotter.plotFunction(t, -10, 10, e, de, true, 10, 0, 0);
+
+// Szenario 5
+
+Funktionplotter.MathFunction i = new Funktionplotter.InverseFunction(1,3);
+Funktionplotter.MathFunction di = new Funktionplotter.DerivativeFunction(i, 0.001);
+Funktionplotter.MathFunction ex =new Funktionplotter.ExpFunction(10,1,-2);
+Funktionplotter.MathFunction dex =new Funktionplotter.DerivativeFunction(ex,0.001)
+Funktionplotter.MathFunction c=new Funktionplotter.CombinedFunction(i,ex,'+');
+Funktionplotter.MathFunction dc=new Funktionplotter.DerivativeFunction(c,0.001);
+plotter.plotFunction(t , -10, 10, c, dc, true, 10, 0, 0);
+
+Funktionplotter.MathFunction l=new Funktionplotter.LinearFunction(2,3);
+Funktionplotter.MathFunction dl=new Funktionplotter.DerivativeFunction(l,0.001);
+plotter.plotFunction(t, -10,10,l, dl, true,10,0,0);
+
+Funktionplotter.MathFunction a = new Funktionplotter.PolynomialFunction(new double[]{1,1,3,-1});
+Funktionplotter.MathFunction da = new Funktionplotter.DerivativeFunction(a, 0.001);
+plotter.plotFunction(t, -10, 10, a, da, true, 10, 0, 0);
+
+plotter.removeFunction(t,"Function_1",10,0,0);
+plotter.removeFunction(t,"Function_2",10,0,0);
+plotter.removeFunction(t,"Function_3",10,0,0);
+plotter.removeFunction(t,"Function_4",10,0,0);
+
