@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ToDo App – Login</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="Login.js"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .login-container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            max-width: 400px;
+            width: 100%;
+            transition: transform 0.3s ease;
+        }
+
+        .login-container:hover {
+            transform: scale(1.02);
+        }
+
+        .form-control:focus {
+            box-shadow: 0 0 5px rgba(33, 150, 243, 0.5);
+            border-color: #2196f3;
+        }
+
+        .btn-primary {
+            background-color: #2196f3;
+            border-color: #2196f3;
+        }
+
+        .btn-primary:hover {
+            background-color: #1976d2;
+            border-color: #1976d2;
+        }
+    </style>
+</head>
+<body>
+<div class="login-container card">
+    <div class="card-body">
+        <h3 class="card-title text-center mb-4">ToDo App Login</h3>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">Benutzername:</label>
+                <input type="text" class="form-control" id="username" required />
+            </div>
+            <div class="form-group">
+                <label for="password">Passwort:</label>
+                <input type="password" class="form-control" id="password" required />
+            </div>
+            <button type="submit" class="btn btn-primary btn-block" id="loginBtn">Einloggen</button>
+            <button type="button" class="btn btn-secondary btn-block mt-2" id="registerBtn">Registrieren</button>
+        </form>
+        <div id="result" class="text-danger text-center mt-3"></div>
+    </div>
+</div>
+</body>
+</html>
