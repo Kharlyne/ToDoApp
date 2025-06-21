@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: todo-backend
+    runtime: docker
+    buildCommand: ./gradlew build && docker build -t todo-backend .
+    startCommand: java -jar build/libs/your-backend.jar
+    env:
+      DB_URL: jdbc:mariadb://${DB_HOST}:${DB_PORT}/${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+    port: 8888
+ 
+  - type: web
+    name: todo-frontend
+    runtime: docker
+    dockerfile: frontend.Dockerfile
+    env:
+      API_URL: https://todo-backend.onrender.com
+    port: 80
