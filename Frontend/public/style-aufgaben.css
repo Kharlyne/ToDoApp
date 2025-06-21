@@ -1,0 +1,97 @@
+body {
+    background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+    min-height: 100vh;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    font-size: 18px;
+}
+
+.container {
+    max-width: 1000px;
+    min-height: 80vh;
+    background: #ffffff;
+    margin-top: 50px;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    font-weight: bold;
+    color: #333;
+    font-size: 2.5rem;
+}
+
+form .form-group input,
+form .form-group textarea {
+    border-radius: 8px;
+    box-shadow: none;
+    font-size: 1.5rem;
+}
+
+.form-check-input {
+    width: 30px;
+    height: 30px;
+}
+
+form .form-group input:focus,
+form .form-group textarea:focus {
+    border-color: #f57c00;
+    box-shadow: 0 0 5px rgba(245, 124, 0, 0.5);
+}
+#taskForm button[type="submit"] {
+    font-size: 2rem; /* Taille du texte sur le bouton */
+    padding: 12px;
+}
+
+.btn-primary {
+    background-color: #f57c00;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #ef6c00;
+}
+.list-group-item span {
+margin-left: 20px;}
+.list-group-item {
+    display : block;
+    margin-top: 10px;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+    font-size: 2rem;
+}
+
+.list-group-item:hover {
+    background-color: #ffe0b2;
+}
+
+.modal-content {
+    border-radius: 10px;
+}
+.navbar {
+    background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+    color: white;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 30px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    min-height: 80px;
+}
+.navbar .navbar-brand span {
+    color: white;
+}
+
+.navbar-brand img {
+    margin-right: 15px;
+    width: 150px;
+    height: 150px;
+}
+.navbar-brand span {
+    font-size: 3rem; /* Texte To Do App plus grand */
+    font-weight: revert;
+    color: #f8d0be;
+}
+

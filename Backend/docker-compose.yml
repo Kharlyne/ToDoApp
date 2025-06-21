@@ -1,0 +1,40 @@
+services:
+
+  # MariaDB Datenbank-Service
+  db:
+    image: mariadb:11.7
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: todo
+      MYSQL_USER: todouser
+      MYSQL_PASSWORD: todopassword
+    volumes:
+      - mariadb-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    restart: unless-stopped
+
+  # Backend Service (Vert.x/Java)
+  backend:
+    build: .  # Dockerfile im aktuellen Verzeichnis
+    depends_on:
+      - db
+    environment:
+      DB_URL: "jdbc:mariadb://db:3306/todo"
+      DB_USER: "todouser"
+      DB_PASSWORD: "todopassword"
+    ports:
+      - "8888:8888"
+    restart: unless-stopped
+
+  # Frontend Service (optional)
+  frontend:
+    image: nginx:alpine
+    volumes:
+      - ../todofrontend/public:/usr/share/nginx/html
+    ports:
+      - "80:80"
+    restart: unless-stopped
+
+volumes:
+  mariadb-data:

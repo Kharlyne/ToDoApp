@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ToDo App – Login</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="style-login.css" rel="stylesheet" />
+  <script defer src="Login.js"></script>
+</head>
+<body>
+
+<div class="login-container card text-center p-4">
+  <img src="Download-removebg-preview.png" alt="To Do App Logo" class="login-logo mb-3" />
+  <div class="card-body">
+    <h3 class="card-title text-center mb-4">ToDo App Login</h3>
+
+    <!-- Login form -->
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="username">Benutzername:</label>
+        <input type="text" class="form-control" id="username" required />
+      </div>
+      <div class="form-group">
+        <label for="password">Passwort:</label>
+        <input type="password" class="form-control" id="password" required />
+      </div>
+      <button type="submit" class="btn btn-primary btn-block" id="loginBtn">Einloggen</button>
+    </form>
+
+    <!-- Registrierung form (ajouté pour fonctionner avec Login.js) -->
+    <form id="registerForm" class="mt-4">
+      <div class="form-group">
+        <label for="regUsername">Neuer Benutzername:</label>
+        <input type="text" class="form-control" id="regUsername" required />
+      </div>
+      <div class="form-group">
+        <label for="regPassword">Neues Passwort:</label>
+        <input type="password" class="form-control" id="regPassword" required />
+      </div>
+      <button type="submit" class="btn btn-secondary btn-block">Registrieren</button>
+    </form>
+
+    <div id="result" class="text-danger text-center mt-3"></div>
+    <p id="registerResult" class="text-success mt-2"></p>
+  </div>
+</div>
+
+</body>
+</html>
