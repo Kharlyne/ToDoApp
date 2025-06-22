@@ -14,6 +14,9 @@ import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.ext.web.handler.CorsHandler;
 import java.util.Set;
 import at.favre.lib.crypto.bcrypt.BCrypt;
+import io.vertx.ext.web.sstore.LocalSessionStore;
+import io.vertx.ext.web.handler.SessionHandler;
+
 
 public class MainVerticle extends AbstractVerticle {
 
@@ -27,7 +30,7 @@ public class MainVerticle extends AbstractVerticle {
   public void start(Promise<Void> startPromise) {
     // Configuration DB
     JsonObject config = new JsonObject()
-        .put("url", "jdbc:mariadb://db:3306/todo")
+        .put("url", "jdbc:mariadb://db:3306/todo_app")
         .put("driver_class", "org.mariadb.jdbc.Driver")
         .put("user", "todouser")
         .put("password", "todopassword")
@@ -49,16 +52,21 @@ public class MainVerticle extends AbstractVerticle {
 
         // Middlewares
         router.route()
-            .handler(CorsHandler.create("*")
-                .allowedMethods(Set.of(
-                    HttpMethod.GET,
-                    HttpMethod.POST, 
-                    HttpMethod.PUT,
-                    HttpMethod.DELETE,
-                    HttpMethod.OPTIONS))
-                .allowedHeaders(Set.of("Content-Type", "Authorization"))
-                .allowCredentials(true))
-            .handler(BodyHandler.create());
+                .handler(CorsHandler.create("*")
+                        .allowedMethod(HttpMethod.GET)
+                        .allowedMethod(HttpMethod.POST)
+                        .allowedMethod(HttpMethod.PUT)
+                        .allowedMethod(HttpMethod.DELETE)
+                        .allowedMethod(HttpMethod.OPTIONS)
+                        .allowedHeader("Content-Type")
+                        .allowedHeader("Authorization")
+                        .allowCredentials(true)
+                );
+
+        router.route().handler(BodyHandler.create());
+        router.route().handler(SessionHandler.create(LocalSessionStore.create(vertx)));
+
+
 
         // Routes
         router.get("/").handler(ctx -> {
@@ -226,6 +234,7 @@ private void register(RoutingContext ctx) {
               ctx.response().putHeader("content-type", "application/json")
                 .end(new JsonObject().put("status", "ok").put("message", "Registrierung erfolgreich!").encode());
             } else {
+                insertRes.cause().printStackTrace();
               ctx.response().setStatusCode(500).end("Fehler beim Einfügen des Benutzers");
             }
             connection.close();
