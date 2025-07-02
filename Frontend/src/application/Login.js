@@ -1,3 +1,5 @@
+import { login, register } from "../data/authApi.js";
+
 document.getElementById("loginForm").addEventListener("submit", function(event) {
     event.preventDefault();
 
@@ -5,57 +7,33 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
     const password = document.getElementById("password").value;
 
     if (username && password) {
-        fetch("http://localhost:8888/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            credentials: "include", // ✅ important pour conserver la session
-            body: JSON.stringify({ username: username, password: password })
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("Login fehlgeschlagen");
-                }
-                return response.json();
-            })
+        login(username, password)
             .then(data => {
                 console.log("Login erfolgreich:", data);
-                // Redirection après succès
-                window.location.href = "Aufgaben.html";
+                window.location.href = "presentation/pages/Aufgaben.html"; // angepasst
             })
             .catch(error => {
                 console.error("Login-Fehler:", error);
                 document.getElementById("result").textContent = "Login fehlgeschlagen.";
             });
-
     } else {
         document.getElementById("result").textContent = "Benutzername und Passwort erforderlich.";
     }
 });
+
 document.getElementById("registerForm").addEventListener("submit", function(event) {
     event.preventDefault();
 
     const username = document.getElementById("regUsername").value;
     const password = document.getElementById("regPassword").value;
 
-    fetch("http://localhost:8888/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({ username, password })
-    })
-        .then(response => {
-            if (!response.ok) throw new Error("Fehler bei der Registrierung");
-            return response.json();
-        })
-        .then(data => {
+    register(username, password)
+        .then(() => {
             document.getElementById("registerResult").textContent = "✅ Registrierung erfolgreich!";
-            window.location.href="Aufgaben.html";
+            window.location.href = "presentation/pages/Aufgaben.html";
         })
         .catch(err => {
             console.error(err);
             document.getElementById("registerResult").textContent = "❌ Fehler bei der Registrierung.";
         });
 });
-

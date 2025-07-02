@@ -1,21 +1,23 @@
-
 <!DOCTYPE html>
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ToDo App – Login</title>
+
+  <!-- Bootstrap CDN -->
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="style-login.css" rel="stylesheet" />
-  <script defer src="lang.js"></script>
-  <script defer src="Login.js"></script>
+
+  <link href="presentation/styles/style.css" rel="stylesheet" />
+  <link href="presentation/styles/style-login.css" rel="stylesheet" />
+
+  <script defer src="application/Login.js"></script>
+  <script defer src="application/lang.js"></script>
 </head>
 <body>
 
-<!-- Auswahl der Sprache -->
-
 <div class="login-container card text-center p-4 mx-auto mt-5" style="max-width: 400px;">
-  <!-- div sprache -->
+  <!-- Sprachwahl -->
   <div class="language-bar">
     <label for="lang-select" class="mr-2">Language:</label>
     <select id="lang-select" class="custom-select w-auto d-inline-block">
@@ -24,11 +26,13 @@
     </select>
   </div>
 
-  <img src="Download-removebg-preview.png" alt="To Do App Logo" class="login-logo mb-3" />
+  <!-- Bild -->
+  <img src="presentation/assets/Download-removebg-preview.png" alt="To Do App Logo" class="login-logo mb-3" />
+
   <div class="card-body">
     <h3 class="card-title text-center mb-4" data-i18n="login_title">ToDo App Login</h3>
 
-    <!-- Login form -->
+    <!-- Login-Formular -->
     <form id="loginForm">
       <div class="form-group">
         <label for="username" data-i18n="username_label">Benutzername:</label>
@@ -41,7 +45,7 @@
       <button type="submit" class="btn btn-primary btn-block" id="loginBtn" data-i18n="login_button">Einloggen</button>
     </form>
 
-    <!-- Register form -->
+    <!-- Registrierungsformular -->
     <form id="registerForm" class="mt-4">
       <div class="form-group">
         <label for="regUsername" data-i18n="reg_username">Neuer Benutzername:</label>

@@ -1,48 +1,26 @@
-let tasks = []; // Liste des tâches
 
-// Charger les tâches au démarrage
+import { getTodos, addTodo, deleteTodoById, toggleTodoDone } from "../data/todosApi.js"
+
+let tasks = [];
+
 document.addEventListener("DOMContentLoaded", () => {
-    fetch("http://localhost:8888/todos", {
-        method: "GET",
-        credentials: "include"
-    })
-        .then(res => {
-            if (!res.ok) throw new Error("Nicht eingeloggt");
-            return res.json();
-        })
+    getTodos()
         .then(data => {
             tasks = data.todos || data;
             updateTaskList();
         })
         .catch(err => {
             console.error("Fehler beim Laden:", err);
-            // window.location.href = "index.html";
         });
 
-    // Ajout d’une tâche
     document.getElementById('taskForm').addEventListener('submit', function (event) {
         event.preventDefault();
         const title = document.getElementById('taskTitle').value.trim();
         const description = document.getElementById('taskDetails').value.trim();
 
         if (title !== "") {
-            fetch('http://localhost:8888/todos', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                credentials: 'include',
-                body: JSON.stringify({ title, description })
-            })
-                .then(res => res.json())
-                .then(() => {
-                    // Recharger les tâches après ajout
-                    return fetch("http://localhost:8888/todos", {
-                        method: "GET",
-                        credentials: "include"
-                    });
-                })
-                .then(res => res.json())
+            addTodo({ title, description })
+                .then(() => getTodos())
                 .then(data => {
                     tasks = data.todos || data;
                     updateTaskList();
@@ -54,7 +32,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Déconnexion
     document.getElementById('logoutBtn').addEventListener('click', () => {
         fetch("http://localhost:8888/logout", {
             method: "POST",
@@ -64,7 +41,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Afficher la modale Profil
     document.getElementById('profileBtn').addEventListener('click', () => {
         $('#profileModal').modal('show');
     });
@@ -86,12 +62,8 @@ function updateTaskList() {
         checkbox.className = 'form-check-input me-2';
         checkbox.checked = task.done === 1 || task.done === true;
         checkbox.addEventListener('change', function () {
-            fetch(`http://localhost:8888/todos/${task.todoId}/done`, {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                credentials: "include",
-                body: JSON.stringify({ done: this.checked })
-            }).catch(err => console.error("Fehler beim Aktualisieren:", err));
+            toggleTodoDone(task.todoId, this.checked)
+                .catch(err => console.error("Fehler beim Aktualisieren:", err));
         });
 
         const taskTitle = document.createElement('span');
@@ -150,15 +122,8 @@ function openTaskMenu(index, parentElement) {
 
 function deleteTask(index) {
     const task = tasks[index];
-    const id = task.todoId; // 👈 attention à l'exact nom de propriété renvoyée par ton backend
-
-    fetch(`http://localhost:8888/todos/${id}`, {
-        method: "DELETE",
-        credentials: "include"
-    })
-        .then(res => {
-            if (!res.ok) throw new Error("❌ La suppression a échoué.");
-            // Si succès, retirer du tableau local et mettre à jour l'affichage
+    deleteTodoById(task.todoId)
+        .then(() => {
             tasks.splice(index, 1);
             updateTaskList();
         })
@@ -173,16 +138,12 @@ function shareTask(index) {
     navigator.clipboard.writeText(`Tâche: ${task.title}\nDétails: ${task.description}`);
     alert('Tâche copiée dans le presse-papiers !');
 }
+
 function openTaskModal(event) {
     const index = event.target.getAttribute('data-index');
     const task = tasks[index];
-
-    // Trouve le champ description peu importe son nom
-    const details = task.beschreibung || task.description || task.details || task.beschreibung || '';
-
+    const details = task.beschreibung || task.description || task.details || '';
     document.getElementById('taskModalLabel').textContent = task.title;
     document.getElementById('modalTaskDetails').value = details;
     $('#taskModal').modal('show');
 }
-
-
