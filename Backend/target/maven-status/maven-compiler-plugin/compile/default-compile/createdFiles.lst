@@ -1,1 +1,6 @@
-com\todoapp\MainVerticle.class
+com\todoapp\routes\AuthRoutes.class
+com\todoapp\routes\ToDoRoutes.class
+com\todoapp\db\DatabaseClient.class
+com\todoapp\handlers\AuthHandler.class
+com\todoapp\handlers\ToDoHandler.class
+MainVerticle.class

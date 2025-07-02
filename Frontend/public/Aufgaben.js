@@ -131,10 +131,10 @@ function openTaskMenu(index, parentElement) {
     menu.style.width = '120px';
     menu.innerHTML = `
         <button class="btn btn-sm btn-outline-danger btn-block mb-2" onclick="deleteTask(${index})">
-            <i class="fas fa-trash"></i> Supprimer
+            <i class="fas fa-trash"></i> Löschen
         </button>
         <button class="btn btn-sm btn-outline-primary btn-block" onclick="shareTask(${index})">
-            <i class="fas fa-share"></i> Partager
+            <i class="fas fa-share"></i> Teilen
         </button>
     `;
 
@@ -176,9 +176,6 @@ function shareTask(index) {
 function openTaskModal(event) {
     const index = event.target.getAttribute('data-index');
     const task = tasks[index];
-
-    // Debug
-    console.log("Données reçues:", task);
 
     // Trouve le champ description peu importe son nom
     const details = task.beschreibung || task.description || task.details || task.beschreibung || '';

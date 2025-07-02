@@ -51,6 +51,7 @@ document.getElementById("registerForm").addEventListener("submit", function(even
         })
         .then(data => {
             document.getElementById("registerResult").textContent = "✅ Registrierung erfolgreich!";
+            window.location.href="Aufgaben.html";
         })
         .catch(err => {
             console.error(err);
