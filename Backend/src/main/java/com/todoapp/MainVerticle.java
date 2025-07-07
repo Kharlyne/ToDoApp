@@ -43,7 +43,8 @@ public class MainVerticle extends AbstractVerticle {
         // Router & middleware
         Router router = Router.router(vertx);
 
-        router.route().handler(CorsHandler.create("http://localhost")
+        router.route().handler(CorsHandler.create("http://localhost:5173")
+
                 .allowCredentials(true)
                 .allowedMethod(HttpMethod.GET)
                 .allowedMethod(HttpMethod.POST)
@@ -55,7 +56,6 @@ public class MainVerticle extends AbstractVerticle {
         router.route().handler(BodyHandler.create());
         router.route().handler(SessionHandler.create(LocalSessionStore.create(vertx)));
 
-        // Route registration
         // Route registration
         AuthRoutes.register(router, authHandler);
         ToDoRoutes.register(router, todoHandler);
@@ -79,7 +79,14 @@ public class MainVerticle extends AbstractVerticle {
                         startPromise.fail(http.cause());
                     }
                 });
+        // Debug-Middleware (nur temporär)
+        router.route().handler(ctx -> {
+            System.out.println("🧠 Session-Daten: " + ctx.session().data());
+            ctx.next();
+        });
+
     }
+
     public static void main(String[] args) {
         Vertx vertx = Vertx.vertx();
         vertx.deployVerticle(new MainVerticle());

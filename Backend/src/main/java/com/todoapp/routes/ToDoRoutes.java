@@ -5,6 +5,17 @@ import io.vertx.ext.web.Router;
 
 public class ToDoRoutes {
     public static void register(Router router, ToDoHandler handler) {
+        // Schutz-Middleware für alle ToDo-Routen
+        router.route("/todos*").handler(ctx -> {
+            if (ctx.session() == null || ctx.session().get("userId") == null) {
+                ctx.response().setStatusCode(401)
+                        .putHeader("Content-Type", "application/json")
+                        .end("{\"status\":\"error\", \"message\":\"Nicht eingeloggt\"}");
+            } else {
+                ctx.next();
+            }
+        });
+
         router.post("/todos").handler(handler::createTodo);
         router.delete("/todos/:id").handler(handler::deleteTodo);
         router.put("/todos/:id").handler(handler::updateTodo);

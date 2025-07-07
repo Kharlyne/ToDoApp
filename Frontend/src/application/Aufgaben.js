@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
             method: "POST",
             credentials: "include"
         }).then(() => {
-            window.location.href = "index.html";
+            window.location.href = "/";
         });
     });
 

@@ -1,6 +1,6 @@
 // src/data/todosApi.js
 
-const BASE_URL = "http://localhost:8888/todos";
+const BASE_URL = import.meta.env.VITE_BACKEND_URL + "/todos";
 
 export async function getTodos() {
     const res = await fetch(BASE_URL, { credentials: "include" });
@@ -9,7 +9,7 @@ export async function getTodos() {
     return data.todos || data;
 }
 
-export async function addTodo(title, description) {
+export async function addTodo({ title, description }) {
     const res = await fetch(BASE_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -20,7 +20,7 @@ export async function addTodo(title, description) {
     return getTodos(); // direkt aktualisieren
 }
 
-export async function deleteTodoById() {
+export async function deleteTodoById(id) {
     const res = await fetch(`${BASE_URL}/${id}`, {
         method: "DELETE",
         credentials: "include"

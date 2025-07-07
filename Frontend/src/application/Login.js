@@ -10,7 +10,7 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
         login(username, password)
             .then(data => {
                 console.log("Login erfolgreich:", data);
-                window.location.href = "presentation/pages/Aufgaben.html"; // angepasst
+                window.location.href = "src/presentation/pages/Aufgaben.html"; // angepasst
             })
             .catch(error => {
                 console.error("Login-Fehler:", error);
@@ -30,7 +30,6 @@ document.getElementById("registerForm").addEventListener("submit", function(even
     register(username, password)
         .then(() => {
             document.getElementById("registerResult").textContent = "✅ Registrierung erfolgreich!";
-            window.location.href = "presentation/pages/Aufgaben.html";
         })
         .catch(err => {
             console.error(err);

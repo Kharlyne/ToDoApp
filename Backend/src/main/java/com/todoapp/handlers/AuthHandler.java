@@ -60,4 +60,14 @@ public class AuthHandler {
         ctx.response().putHeader("content-type", "application/json")
                 .end(new JsonObject().put("status", "ok").put("message", "Logout erfolgreich!").encode());
     }
+    public void checkAuth(RoutingContext ctx) {
+        if (ctx.session() != null && ctx.session().get("userId") != null) {
+            ctx.next(); // allow request to continue
+        } else {
+            ctx.response().setStatusCode(401)
+                    .putHeader("content-type", "application/json")
+                    .end(new JsonObject().put("status", "error").put("message", "Nicht eingeloggt").encode());
+        }
+    }
+
 }
