@@ -12,6 +12,7 @@ import com.todoapp.services.ToDoService;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Promise;
+import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.sql.SQLClient;
@@ -55,8 +56,9 @@ public class MainVerticle extends AbstractVerticle {
         router.route().handler(SessionHandler.create(LocalSessionStore.create(vertx)));
 
         // Route registration
-        router.mountSubRouter("/auth", AuthRoutes.createSubRouter(router, authHandler));
-        router.mountSubRouter("/todos", ToDoRoutes.createSubRouter(router, todoHandler));
+        // Route registration
+        AuthRoutes.register(router, authHandler);
+        ToDoRoutes.register(router, todoHandler);
 
 
         // Health check
@@ -77,5 +79,9 @@ public class MainVerticle extends AbstractVerticle {
                         startPromise.fail(http.cause());
                     }
                 });
+    }
+    public static void main(String[] args) {
+        Vertx vertx = Vertx.vertx();
+        vertx.deployVerticle(new MainVerticle());
     }
 }
