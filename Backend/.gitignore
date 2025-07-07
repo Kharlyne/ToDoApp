@@ -1,0 +1,25 @@
+# Java
+*.class
+*.jar
+*.war
+*.ear
+
+# Maven
+/target/
+/dependency-reduced-pom.xml
+
+# IDEs
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment or secrets (if used)
+.env
+*.sqlite

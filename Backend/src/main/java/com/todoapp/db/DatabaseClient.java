@@ -9,19 +9,24 @@ public class DatabaseClient {
 
     private static SQLClient client;
 
-    public static void init(Vertx vertx) {
-        JsonObject config = new JsonObject()
-                .put("url", "jdbc:mariadb://db:3306/todo_app")
-                .put("driver_class", "org.mariadb.jdbc.Driver")
-                .put("user", "todouser")
-                .put("password", "todopassword")
-                .put("max_pool_size", 10);
+    private static final JsonObject CONFIG = new JsonObject()
+            .put("url", "jdbc:mariadb://db:3306/todo_app")
+            .put("driver_class", "org.mariadb.jdbc.Driver")
+            .put("user", "todouser")
+            .put("password", "todopassword")
+            .put("max_pool_size", 10);
 
-        client = JDBCClient.createShared(vertx, config);
-        System.out.println("✅ Verbindung zur Datenbank erfolgreich!");
+    public static void init(Vertx vertx) {
+        if (client == null) {
+            client = JDBCClient.createShared(vertx, CONFIG);
+            System.out.println("✅ DB connection pool initialized.");
+        }
     }
 
     public static SQLClient getClient() {
+        if (client == null) {
+            throw new IllegalStateException("❌ DatabaseClient not initialized. Call init() first.");
+        }
         return client;
     }
 }

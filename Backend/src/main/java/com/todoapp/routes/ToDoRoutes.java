@@ -1,15 +1,20 @@
 package com.todoapp.routes;
+
 import com.todoapp.handlers.ToDoHandler;
 import io.vertx.ext.web.Router;
 
 public class ToDoRoutes {
-    public static void register(Router router, ToDoHandler handler) {
-        router.post("/todos").handler(handler::createTodo);
-        router.delete("/todos/:id").handler(handler::deleteTodo);
-        router.put("/todos/:id").handler(handler::updateTodo);
-        router.get("/todos").handler(handler::getTodos);
-        router.put("/todos/:id/done").handler(handler::updateDoneStatus);
-        router.get("/todos/shared").handler(handler::getSharedTodos);
-        router.post("/todos/:id/share").handler(handler::shareTodo);
+    public static Router createSubRouter(Router root, ToDoHandler handler) {
+        Router sub = root.getDelegate().router();
+
+        sub.post("/").handler(handler::createTodo);
+        sub.delete("/:id").handler(handler::deleteTodo);
+        sub.put("/:id").handler(handler::updateTodo);
+        sub.get("/").handler(handler::getTodos);
+        sub.put("/:id/done").handler(handler::updateDoneStatus);
+        sub.get("/shared").handler(handler::getSharedTodos);
+        sub.post("/:id/share").handler(handler::shareTodo);
+
+        return sub;
     }
 }
