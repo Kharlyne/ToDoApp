@@ -5,7 +5,6 @@ import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.jdbc.JDBCClient;
 import io.vertx.ext.sql.SQLClient;
-
 public class DatabaseClient {
 
     private static SQLClient client;
