@@ -1,6 +1,5 @@
 package com.todoapp.services;
 
-import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.todoapp.repositories.AuthRepository;
 import io.vertx.core.Future;
 import io.vertx.core.Promise;
