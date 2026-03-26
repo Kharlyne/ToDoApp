@@ -1,15 +1,32 @@
 package com.todoapp.db;
 
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+
 import io.github.cdimascio.dotenv.Dotenv;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.jdbc.JDBCClient;
 import io.vertx.ext.sql.SQLClient;
-
 public class DatabaseClient {
 
+    private static final Logger logger = Logger.getLogger(DatabaseClient.class.getName());
     private static SQLClient client;
 
+static {
+    try {
+        java.nio.file.Files.createDirectories(java.nio.file.Paths.get("logs"));
+        FileHandler fileHandler = new FileHandler("logs/db.log", true);
+        fileHandler.setFormatter(new SimpleFormatter());
+        logger.addHandler(fileHandler);
+        logger.setLevel(Level.ALL);
+        logger.setUseParentHandlers(true); // log aussi dans le terminal
+    } catch (Exception e) {
+        System.err.println("❌ Logger setup failed in DatabaseClient: " + e.getMessage());
+    }
+}
     public static void init(Vertx vertx) {
         if (client == null) {
             Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
@@ -31,12 +48,15 @@ public class DatabaseClient {
                     .put("max_pool_size", poolSize);
 
             client = JDBCClient.createShared(vertx, config);
+
+            logger.info("✅ DB connection pool initialized.");
             System.out.println("✅ DB connection pool initialized.");
         }
     }
 
     public static SQLClient getClient() {
         if (client == null) {
+             logger.severe("❌ Attempted to access DB client before initialization.");
             throw new IllegalStateException("❌ DatabaseClient not initialized. Call init() first.");
         }
         return client;

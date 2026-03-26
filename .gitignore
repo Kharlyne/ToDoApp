@@ -1,0 +1,18 @@
+# IntelliJ
+.idea/
+*.iml
+
+# Java/Maven
+target/
+*.jar
+*.class
+dependency-reduced-pom.xml
+
+# Env and secrets
+.env
+
+# Node/Frontend
+node_modules/
+dist/
+dist-ssr/
+*.log
